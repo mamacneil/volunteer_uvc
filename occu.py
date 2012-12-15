@@ -37,6 +37,6 @@ xi = Bernoulli('xi', p=psi, value=np.ones(nsamp))
 pi = Lambda('pi', lambda xi=xi[Ii],pj=pj: xi*pj, trace=False)
 
 #------------------------------------------------ Likelihood
-yij = Bernoulli('yij', p=pi, value=yi, observed=True)
+Yitk = Bernoulli('yitk', p=pi, value=yitk, observed=True)
 
 
