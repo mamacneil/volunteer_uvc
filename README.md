@@ -1,4 +1,4 @@
-volunteer_uvc
+# volunteer_uvc
 =============
 
 Occupancy example for Holt et al. (2013) Methods in Ecology and Evolution xx:xxx-xxx.
@@ -8,6 +8,8 @@ PyMC code is provided to implement a simple latent-state occupancy model for ree
 
 
 
+Further reading
+=================
 
 Dorazio, R.M. and Royle, J.A. and Söderström, B. and Gilmskär (2006) Estimating species richness and accumulation by modelling species occurrence and detectability. Ecology 87(4):842-854.
 
