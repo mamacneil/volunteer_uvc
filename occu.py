@@ -14,32 +14,32 @@ from data import *
 #------------------------------------------------ Priors
 ## Detection ##
 # Method effect on detection
-gamma1 = Normal('gamma_method', mu=0.0, tau=0.01, value=0.0)
+gamma_1 = Normal('gamma_method', mu=0.0, tau=0.01, value=0.0)
 # Functional group average detection
-gamma2 = Normal('gamma_fg', mu=0.0, tau=0.01, value=np.zeros(nfg))
+gamma_2 = Normal('gamma_fg', mu=0.0, tau=0.01, value=np.zeros(nfg))
 # Detection model
-gamma_mu = Lambda('gamma_mu', lambda g1=gamma1,g2=gamma2[Ifg]: g1*method+g2, trace=False)
+gamma_mu = Lambda('gamma_mu', lambda g1=gamma_1,g2=gamma_2[Ifg]: g1*method+g2, trace=False)
 # Logit detection
-thetaij = Lambda('theta_ij', lambda mu=gamma_mu: invlogit(mu), trace=False)
+theta_ij = Lambda('theta_ij', lambda mu=gamma_mu: invlogit(mu), trace=False)
 
 ## Occupancy ##
 # Grand mean occupancy
-beta0 = Normal('beta_int', mu=0.0, tau=0.01, value=0.0)
+beta_0 = Normal('beta_int', mu=0.0, tau=0.01, value=0.0)
 # Location-level average occupancy
-beta1 = Normal('beta_loc', mu=beta0, tau=0.01, value=np.zeros(nloc))
+beta_1 = Normal('beta_loc', mu=beta_0, tau=0.01, value=np.zeros(nloc))
 # Logit occupancy
-psi = Lambda('psi', lambda b1=beta1[Il]: invlogit(b1), trace=False)
+psi_ij = Lambda('psi_ij', lambda b1=beta_1[Il]: invlogit(b1), trace=False)
 
 
 ### Latent-state implementation
 #------------------------------------------------ Model
 # Latent occupancy
-zij = Bernoulli('z_ij', p=psi, value=np.ones(nsamp))
+z_ij = Bernoulli('z_ij', p=psi_ij, value=np.ones(nsamp))
 # Occupancy*detection
-pi = Lambda('pi', lambda zij=zij[Ii],pij=thetaij: zij*pij, trace=False)
+p_ij = Lambda('p_ij', lambda z_ij=z_ij[Ii],p_ij=theta_ij: z_ij*p_ij, trace=False)
 
 #------------------------------------------------ Likelihood
-Yitk = Bernoulli('yitk', p=pi, value=yitk, observed=True)
+Y_ij = Bernoulli('y_ij', p=p_ij, value=y_ij, observed=True)
 
 
 

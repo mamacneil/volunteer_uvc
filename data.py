@@ -9,7 +9,7 @@ import numpy as np
 
 ## Response
 # Load observations
-yitk = np.loadtxt("Yobs.csv",delimiter=",").astype(int)
+y_ij = np.loadtxt("Yobs.csv",delimiter=",").astype(int)
 
 ## Covariates
 nfg = 5
