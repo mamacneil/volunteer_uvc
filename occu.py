@@ -30,6 +30,8 @@ beta1 = Normal('beta_loc', mu=beta0, tau=0.01, value=np.zeros(nloc))
 # Logit occupancy
 psi = Lambda('psi', lambda b1=beta1[Il]: invlogit(b1), trace=False)
 
+
+### Latent-state implementation
 #------------------------------------------------ Model
 # Latent occupancy
 zij = Bernoulli('z_ij', p=psi, value=np.ones(nsamp))
@@ -38,5 +40,9 @@ pi = Lambda('pi', lambda zij=zij[Ii],pij=thetaij: zij*pij, trace=False)
 
 #------------------------------------------------ Likelihood
 Yitk = Bernoulli('yitk', p=pi, value=yitk, observed=True)
+
+
+
+
 
 
